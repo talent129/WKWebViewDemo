@@ -16,6 +16,7 @@
 		5F99A2811FCE650300FD5126 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F99A2801FCE650300FD5126 /* main.m */; };
 		5FDF04C61FCE7FCA0010CCF3 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDF04C51FCE7FCA0010CCF3 /* WebViewController.m */; };
 		5FDF04CB1FCE8D900010CCF3 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDF04CA1FCE8D900010CCF3 /* BaseViewController.m */; };
+		CB2F554020C616E60029F663 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2F553F20C616E60029F663 /* BaseNavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,8 @@
 		5FDF04CA1FCE8D900010CCF3 /* BaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		616250896E46BA3CE753F7BA /* Pods-WKWebViewDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WKWebViewDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WKWebViewDemo/Pods-WKWebViewDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		6AF9310834FE6403E9C38FED /* libPods-WKWebViewDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WKWebViewDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB2F553E20C616E60029F663 /* BaseNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
+		CB2F553F20C616E60029F663 /* BaseNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +78,8 @@
 				5F99A2721FCE650300FD5126 /* AppDelegate.m */,
 				5FDF04C91FCE8D900010CCF3 /* BaseViewController.h */,
 				5FDF04CA1FCE8D900010CCF3 /* BaseViewController.m */,
+				CB2F553E20C616E60029F663 /* BaseNavigationController.h */,
+				CB2F553F20C616E60029F663 /* BaseNavigationController.m */,
 				5F99A2741FCE650300FD5126 /* ViewController.h */,
 				5F99A2751FCE650300FD5126 /* ViewController.m */,
 				5FDF04C41FCE7FCA0010CCF3 /* WebViewController.h */,
@@ -232,6 +237,7 @@
 			files = (
 				5FDF04C61FCE7FCA0010CCF3 /* WebViewController.m in Sources */,
 				5FDF04CB1FCE8D900010CCF3 /* BaseViewController.m in Sources */,
+				CB2F554020C616E60029F663 /* BaseNavigationController.m in Sources */,
 				5F99A2761FCE650300FD5126 /* ViewController.m in Sources */,
 				5F99A2811FCE650300FD5126 /* main.m in Sources */,
 				5F99A2731FCE650300FD5126 /* AppDelegate.m in Sources */,
@@ -370,11 +376,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7GSW2BF5U4;
+				DEVELOPMENT_TEAM = 6655SUKF64;
 				INFOPLIST_FILE = WKWebViewDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Curtis.WKWebViewDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zijinsuo.iospro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -386,11 +392,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7GSW2BF5U4;
+				DEVELOPMENT_TEAM = 6655SUKF64;
 				INFOPLIST_FILE = WKWebViewDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Curtis.WKWebViewDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zijinsuo.iospro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

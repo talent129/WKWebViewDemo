@@ -11,7 +11,7 @@
 
 #define Screen_Bounds [UIScreen mainScreen].bounds
 
-@interface WebViewController ()<WKUIDelegate, WKNavigationDelegate>
+@interface WebViewController ()<WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler>
 
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIProgressView *progressView;
@@ -24,7 +24,20 @@
 - (WKWebView *)webView
 {
     if (!_webView) {
-        _webView = [[WKWebView alloc] initWithFrame:Screen_Bounds];
+        WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc]init];
+        WKUserContentController *userContentController = [[WKUserContentController alloc] init];
+        
+        /*! @abstract Adds a script message handler.
+         @param scriptMessageHandler The message handler to add.
+         @param name The name of the message handler.
+         @discussion Adding a scriptMessageHandler adds a function
+         window.webkit.messageHandlers.<name>.postMessage(<messageBody>) for all
+         frames.
+         */
+        [userContentController addScriptMessageHandler:self name:@"yourRegisterHandle"];
+        config.userContentController = userContentController;
+        
+        _webView = [[WKWebView alloc] initWithFrame:Screen_Bounds configuration:config];
         _webView.backgroundColor = [UIColor whiteColor];
         _webView.UIDelegate = self;
         _webView.navigationDelegate = self;
@@ -41,7 +54,8 @@
         _progressView.progressTintColor = [UIColor blueColor];//进度条颜色
         _progressView.trackTintColor = [UIColor clearColor];//进度条还未到达的线条颜色
         
-        _progressView.hidden = YES;//初始隐藏
+        //默认值
+        _progressView.progress = 0.3;
     }
     return _progressView;
 }
@@ -88,7 +102,8 @@
         UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         closeButton.frame = CGRectMake(0, 0, 44, 44);
         closeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [closeButton setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+        [closeButton setTitle:@"关闭" forState:UIControlStateNormal];
+//        [closeButton setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
         [closeButton addTarget:self action:@selector(popToLastViewController) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *closeItem = [[UIBarButtonItem alloc]initWithCustomView:closeButton];
         UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
@@ -150,17 +165,10 @@
     } else if ([keyPath isEqualToString:@"estimatedProgress"]) {
         if ([object isEqual:self.webView]) {
             NSLog(@"-change: %@ ---estimatedProgress: %f", change, self.webView.estimatedProgress);
-            [self.progressView setProgress:self.webView.estimatedProgress animated:YES];
-
-            if (self.webView.estimatedProgress > 0 && self.webView.estimatedProgress < 1) {
-                _progressView.hidden = NO;
-            } else if (self.webView.estimatedProgress == 1) {
-
-                __weak typeof(self) weakSelf = self;
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    weakSelf.progressView.hidden = YES;
-                    [weakSelf.progressView setProgress:0 animated:NO];
-                });
+            if ([change[@"new"] floatValue] < 0.3) {
+                [self.progressView setProgress:0.3];
+            } else {
+                [self.progressView setProgress:self.webView.estimatedProgress animated:YES];
             }
         }
     } else {
@@ -184,6 +192,7 @@
 ///页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation
 {
+    self.progressView.hidden = NO;
     NSLog(@"--页面开始加载调用-didStartProvisionalNavigation");
 }
 
@@ -191,15 +200,6 @@
 {
     NSLog(@"--接收到响应后，决定是否跳转--decidePolicyForNavigationResponse");
     NSLog(@"%@",navigationResponse.response.URL.absoluteString);
-    
-    //比如遇到某些字段 返回 -百度 南京天气预报
-    NSString *backUrl = @"mipcache.bdstatic.com";
-    if ([navigationResponse.response.URL.absoluteString rangeOfString:backUrl].location != NSNotFound) {
-        NSLog(@"--这个字符串中包含: %@", backUrl);
-        //回调的URL中如果含有backUrl，就直接返回，也就是关闭了webView界面
-        [self.navigationController  popViewControllerAnimated:YES];
-    }
-    
     
     //允许跳转
     decisionHandler(WKNavigationResponsePolicyAllow);
@@ -216,7 +216,7 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     NSLog(@"--页面加载完成之后调用-didFinishNavigation");
-    
+    self.progressView.hidden = YES;
 }
 
 - (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation *)navigation
@@ -228,7 +228,22 @@
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error
 {
     NSLog(@"--页面加载失败调用-didFailProvisionalNavigation");
+    self.progressView.hidden = YES;
+}
 
+#pragma mark -WKScriptMessageHandler 监控webView按钮点击事件
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
+{
+    NSLog(@"==%@", message.body);
+    NSString *functionName = message.body;
+    if ([functionName isEqualToString:@"methodA"]) {
+        
+        //To do...
+        
+    } else if ([functionName isEqualToString:@"methodB"]) {
+        //To do...
+        
+    }
 }
 
 #pragma mark -WKUIDelegate
@@ -261,6 +276,7 @@
 
 - (void)dealloc
 {
+    //添加了什么观察者 就一定要记着remove它  否则会造成崩溃
     [self.webView removeObserver:self forKeyPath:@"title"];
     [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
 }

@@ -20,14 +20,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.navigationController.navigationBar.barTintColor = [UIColor orangeColor];
-    self.navigationController.navigationBar.translucent = NO;
-    
-    ///右滑返回
-    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
-    
     [self zjsLeftBarButtonItem];
-    
 }
 
 #pragma mark -左侧返回按钮

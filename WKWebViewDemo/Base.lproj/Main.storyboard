@@ -19,11 +19,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rot-NM-qeo">
-                                <rect key="frame" x="155" y="318.5" width="65" height="30"/>
+                                <rect key="frame" x="137.5" y="308.5" width="100" height="50"/>
                                 <color key="backgroundColor" red="0.13754169613013634" green="0.23323475417835737" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="7OB-di-e09"/>
-                                    <constraint firstAttribute="width" constant="65" id="zl2-y8-hdq"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="8aV-Y0-eho"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Zh1-KQ-4Rn"/>
                                 </constraints>
                                 <color key="tintColor" red="1" green="0.1739492649708213" blue="0.19373956516765312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="点击push"/>
@@ -35,7 +35,9 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Rot-NM-qeo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ZYQ-YK-LSn"/>
+                            <constraint firstItem="Rot-NM-qeo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ldd-tm-pZv"/>
                             <constraint firstItem="Rot-NM-qeo" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="nwD-JB-X2w"/>
+                            <constraint firstItem="Rot-NM-qeo" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zYa-7J-aZ3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -45,10 +47,10 @@
             </objects>
             <point key="canvasLocation" x="476" y="133.5832083958021"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Base Navigation Controller-->
         <scene sceneID="9KF-fK-Ztb">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0wo-ze-oI0" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0wo-ze-oI0" customClass="BaseNavigationController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ohQ-QQ-dMd">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
